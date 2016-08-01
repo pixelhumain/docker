@@ -8,16 +8,16 @@ RUN apt-get update \
             libmcrypt-dev \
             zlib1g-dev \
             php5-dev \
-        --no-install-recommends \
+        --no-install-recommends
 
 
     # Install PHP extensions
-    && docker-php-ext-install intl \
+RUN docker-php-ext-install intl \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install mcrypt \
     && docker-php-ext-install zip \
     && pecl install mongodb \
-    && echo extension=mongo.so > /usr/local/etc/php/php.ini \
+    && echo extension=mongodb.so > /usr/local/etc/php/php.ini \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && sed -i '1 a xdebug.remote_enable=1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
@@ -29,5 +29,5 @@ RUN apt-get update \
 
 WORKDIR /code
 
-RUN php -S 127.0.0.1:8888
+ENTRYPOINT ["php", "-S", "0.0.0.0:8888"]
 

@@ -3,11 +3,11 @@ services:
   web:
     build: .
     ports:
-     - "5000:8888"
-     - "9001:9000"
+      - "5000:8888"
+      - "9001:9000"
     volumes:
-     - .:/code
+      - ./code:/code
     depends_on:
-     - mongo
+      - mongo
   mongo:
     image: mongo
