@@ -29,5 +29,5 @@ RUN apt-get update \
 
 WORKDIR /code
 
-CMD [ "php", "-S 127.0.0.1:8888" ]
+RUN php -S 127.0.0.1:8888
 
