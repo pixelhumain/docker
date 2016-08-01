@@ -1,0 +1,13 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:8888"
+     - "9001:9000"
+    volumes:
+     - .:/code
+    depends_on:
+     - mongo
+  mongo:
+    image: mongo
