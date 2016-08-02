@@ -1,9 +1,10 @@
 version: '2'
 services:
-  web:
+  front:
     build: .
     ports:
-      - "5000:8888"
+      - "5000:80"
+      - "5443:444"
       - "9001:9000"
     volumes:
       - ./code:/code

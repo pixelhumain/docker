@@ -1,0 +1,6 @@
+- Add Mysql
+- Setup nginx configuration (per module or per docker-compose ?)
+- Split docker-compose file into deployement and development version
+- Setup persistent storage (db, ...) for dev, version (and deployement ?)
+- Use environnement variables for user / password (only for dev. ?)
+- Test everything and add tests.
