@@ -5,8 +5,8 @@ RUN rm -f /etc/nginx/conf.d/*
 
 # Install packages
 RUN apt-get update && apt-get install -my \
-  supervisor \
   curl \
+  supervisor \
   wget \
   php5-curl \
   php5-fpm \
@@ -35,18 +35,18 @@ RUN sed -i '/^;pm\.status_path/s/^;//' /etc/php5/fpm/pool.d/www.conf
 # XDebug loaded with the core
 RUN sed -i '/.*xdebug.so$/s/^/;/' /etc/php5/mods-available/xdebug.ini
 
-# Install HHVM
+## Install HHVM
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
 RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
 RUN apt-get update && apt-get install -y hhvm
-RUN /usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60
+#RUN /usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60
 
 # Add configuration files
 COPY front-conf/nginx.conf /etc/nginx/
 COPY front-conf/supervisord.conf /etc/supervisor/conf.d/
 COPY front-conf/php.ini /etc/php5/fpm/conf.d/40-custom.ini
+COPY front-conf/communecter.conf /etc/nginx/conf.d/
 
-COPY composer.sh /tmp/composer.sh
 COPY install.sh /tmp/install.sh
 
 EXPOSE 80 443 9000
