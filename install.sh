@@ -19,6 +19,10 @@ mongo mongo/pixelhumain <<EOF
 db.createUser({ user: 'pixelhumain', pwd: 'pixelhumain', roles: [ { role: "readWrite", db: "pixelhumain" } ] });
 EOF
 
+mongo mongo/pixelhumaintest <<EOF
+db.createUser({ user: 'pixelhumain', pwd: 'pixelhumain', roles: [ { role: "readWrite", db: "pixelhumain" } ] });
+EOF
+
 # Setup configuration for MongoDB
 # Overwrite $dbconfig variable by appending to the end
 
@@ -28,6 +32,11 @@ cat >> "${BASE_DIR}/ph/protected/config/dbconfig.php" <<EOF
     'class' => 'mongoYii.EMongoClient',
     'server' => 'mongodb://mongo:27017/',
     'db' => 'pixelhumain',
+);
+\$dbconfigtest = array(
+    'class' => 'mongoYii.EMongoClient',
+    'server' => 'mongodb://mongo:27017/',
+    'db' => 'pixelhumaintest',
 );
 EOF
 

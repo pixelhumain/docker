@@ -4,3 +4,5 @@
 - Use environnement variables for user / password (only for dev. ?)
 - Test everything and add tests (especially for install script).
 - Investigate MongoDB key issue or change way to init database
+- Investigate .htaccess to provide alternative
+- Protect files that should not be accessed to be accessed.
