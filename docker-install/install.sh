@@ -1,17 +1,41 @@
-#!/bin/sh
+#!/bin/bash
 
-BASE_DIR=/code/pixelhumain
-BASE_DIR_PH="${BASE_DIR}/ph"
+BASE_DIR="/code"
+BASE_DIR_PH="${BASE_DIR}/pixelhumain/ph"
+MODULE_DIR="/code/modules"
 
+ph_uri="https://github.com/pixelhumain/pixelhumain.git"
+ph_dir="${BASE_DIR}/pixelhumain"
+
+cmnctr_uri="https://github.com/pixelhumain/communecter.git"
+cmnctr_dir="communecter"
+ctzntkt_uri="https://github.com/pixelhumain/citizenToolkit"
+ctzntkt_dir="citizenToolKit"
+ctdt_uri="https://github.com/pixelhumain/cityData"
+ctdt_dir="cityData"
+pndt_uri="https://github.com/pixelhumain/opendata"
+pndt_dir="opendata"
+
+modules="cmctr ctzntkt ctdt pndt"
+
+# Install pixelhumain
+git clone "$ph_uri" "$ph_dir"
+
+# Setup directories
+mkdir -vp /code/{modules,pixelhumain/ph/{assets,protected/runtime}}
+
+# Install missing modules
+for mod in $modules
+  do
+    mod_uri=$(eval "echo \$${mod}_uri")
+    mod_dir=$(eval "echo \$${mod}_dir")
+    if [ -d "${MODULE_DIR}/$mod_dir" ]; then
+      continue
+    fi
+    git clone "$mod_uri" "${MODULE_DIR}/$mod_dir"
+  done
+ 
 # Setup MongoDB
-
-echo "Installing MongoDB"
-
-## Install mongodb 3.2
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
-    echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.2 main" | \
-    tee /etc/apt/sources.list.d/mongodb-org-3.2.list && \
-    apt-get update && apt-get install --force-yes -y mongodb-org-shell || exit 1 # --force-yes due to a key problem #TODO
 
 echo "Setting up credentials"
 
@@ -25,8 +49,9 @@ EOF
 
 # Setup configuration for MongoDB
 # Overwrite $dbconfig variable by appending to the end
+# TODO Don't add endlessly
 
-cat >> "${BASE_DIR}/ph/protected/config/dbconfig.php" <<EOF
+cat >> "${BASE_DIR_PH}/protected/config/dbconfig.php" <<EOF
 
 \$dbconfig = array(
     'class' => 'mongoYii.EMongoClient',
@@ -42,7 +67,7 @@ EOF
 
 # Install Composer
 
-echo "Installing composer"
+echo "Installing composer" # No package manager available...
 
 EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
 cd /tmp
@@ -59,16 +84,13 @@ else
     exit 1
 fi
 
-# Setup directory
-
-echo "Setting up directories"
-
-mkdir -v "${BASE_DIR_PH}/protected/runtime"
-mkdir -v "${BASE_DIR_PH}/assets"
-
 echo "Setting up with Composer"
 
 cd "${BASE_DIR_PH}"
 /tmp/composer.phar config -g "secure-http" false
 /tmp/composer.phar update
 /tmp/composer.phar install 
+
+cd 
+# TODO: Don't import endlessly
+mongoimport --host mongo --db pixelhumain --collection cities /code/modules/cityData/cities/cities.js --jsonArray

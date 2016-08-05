@@ -1,0 +1,8 @@
+version: '2'
+services:
+  ph:
+    build: docker-install
+    volumes:
+      - ./code:/code
+    depends_on:
+      - front

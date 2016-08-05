@@ -1,8 +1,44 @@
-# warning
+# Initial setup
+* 1 Create a folder named *code* that will work as a work directory.
+* 2 Put your source file in the *code* directory:
+    - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
+    - use the docker image provided below
+    - Your VCS / IDE / ...
+* 3 Start the containers using:
+```
+docker-compose -f docker-compose.yml up
+```
+* 4 Access to the test service through http://127.0.0.1:5000/ph/index.php/test
+* 5 Access to communecter through http://127.0.0.1:5000/ph/
+* 6 You can modify your sources code with your prefered editor in the code directory
 
-WE ARE WORKING TO MAKE THIS WORK, DON'T USE IT YET 
-unless to learn or help ;)
+# Basic setup and data with the docker image
+  For an initial setup you'll need to init MongoDB, configurations, etc (see
+  communecter install guide for more details)
+  An easy to use image with an install script is provided through the docker
+  imager « ph » and can be used with this command
+```
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph install
+```
+  The install script fetch every modules in the pixelhumain guide, create directories
+  and populate some data like cities, ...
 
-# docker
-
-docker images for easy installing communecter and it's modules 
+# Updating Dockers images and therefore services (not code)
+Useful commands:
+Start services
+```
+docker-compose -f docker-compose.yml up
+```
+Shutdown gracefuly services
+```
+docker-compose -f docker-compose.yml down
+```
+Re-build images after modifications of docker files
+```
+docker-compose -f docker-compose.yml build
+#docker-compose -f docker-compose.yml -f docker-compose.install.yml build ph
+```
+Install base sources codes and populates some data
+```
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph install
+```
