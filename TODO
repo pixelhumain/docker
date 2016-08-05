@@ -1,3 +1,4 @@
+- Fix permissions
 - Setup nginx configuration (per module or per docker-compose ?)
 - Split docker-compose file into deployement and development version
 - Setup persistent storage (db, ...) for dev, version (and deployement ?)

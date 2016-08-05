@@ -5,9 +5,9 @@
 ```
 git clone https://github.com/pixelhumain/docker pixelhumain-docker
 ```
-* 1 Create a folder named *code* that will work as a work directory
+* 1 Create a folder *code* that will be the source directory inside pixelhumain-docker
 ```
-mkdir pixelhumain-docker/code
+mkdir code
 ```
 * 2 Put your source file in the *code* directory:
     - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
