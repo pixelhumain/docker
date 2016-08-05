@@ -71,3 +71,8 @@ Install base sources codes and populates some data
 ```
 docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph install
 ```
+See log from nginx
+```
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph supervisorctl tail nginx
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph supervisorctl tail nginx stderr
+```

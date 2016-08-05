@@ -15,9 +15,10 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
       mongodb-clients \
       php5-cli \
       supervisor \
-      wget
+      wget && \
+    rm /etc/supervisor/supervisord.conf
 
-COPY install-conf/supervisord.conf /etc/supervisor/conf.d/
+COPY install-conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY install.sh /usr/bin/install
 
 # No entry point, could be used as a scratch machine
