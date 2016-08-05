@@ -9,10 +9,10 @@ RUN echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.2 main" | 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
     apt-get update && \
     apt-get install --force-yes -y \
-      mongodb-org-shell && \
+      mongodb-org-shell \
+      mongodb-org-tools && \
     apt-get install -my \
       git \
-      mongodb-clients \
       php5-cli \
       supervisor \
       wget && \
