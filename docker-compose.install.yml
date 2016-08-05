@@ -5,4 +5,4 @@ services:
     volumes:
       - ./code:/code
     depends_on:
-      - mongo
+      - front

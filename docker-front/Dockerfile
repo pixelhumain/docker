@@ -38,6 +38,6 @@ COPY front-conf/supervisord.conf /etc/supervisor/conf.d/
 COPY front-conf/php.ini /etc/php5/fpm/conf.d/40-custom.ini
 COPY front-conf/communecter.conf /etc/nginx/conf.d/
 
-EXPOSE 80 443 9000
+EXPOSE 80 443 9001
 
 ENTRYPOINT ["/usr/bin/supervisord"]

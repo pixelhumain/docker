@@ -17,8 +17,8 @@ mkdir code
 ```
 docker-compose -f docker-compose.yml up
 ```
-* 4 Access to the test service through http://127.0.0.1:5000/ph/index.php/test
-* 5 Access to communecter through http://127.0.0.1:5000/ph/
+* 4 Access to the test service through http://127.0.0.1:5080/ph/index.php/test
+* 5 Access to communecter through http://127.0.0.1:5090/ph/
 * 6 You can modify your sources code with your prefered editor in the code directory
 
 # Layout overview
@@ -33,8 +33,10 @@ docker-compose -f docker-compose.yml up
     |-- pixelhumain
         |-- ph
         |-- [...]
-|-- front-conf
 |-- docker-install
+    |-- install-conf
+    |-- [...]
+|-- docker-front
 [...]
 ```
 

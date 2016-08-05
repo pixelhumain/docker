@@ -32,7 +32,8 @@ for mod in $modules
     if [ -d "${MODULE_DIR}/$mod_dir" ]; then
       continue
     fi
-    git clone "$mod_uri" "${MODULE_DIR}/$mod_dir"
+    echo "Installing ${mod_dir}"
+    git clone "$mod_uri" "${MODULE_DIR}/$mod_dir" || exit 1
   done
  
 # Setup MongoDB

@@ -1,11 +1,10 @@
 version: '2'
 services:
   front:
-    build: .
+    build: docker-front
     ports:
-      - "5000:80"
-      - "5443:444"
-      - "9001:9000"
+      - "5080:80"
+      - "5443:443"
     volumes:
       - ./code:/code
     depends_on:

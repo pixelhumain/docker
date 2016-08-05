@@ -12,10 +12,12 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
       mongodb-org-shell && \
     apt-get install -my \
       git \
-      php5-cli \
       mongodb-clients \
+      php5-cli \
+      supervisor \
       wget
 
+COPY install-conf/supervisord.conf /etc/supervisor/conf.d/
 COPY install.sh /usr/bin/install
 
 # No entry point, could be used as a scratch machine
