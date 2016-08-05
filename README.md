@@ -1,5 +1,14 @@
+# WIP
+
 # Initial setup
-* 1 Create a folder named *code* that will work as a work directory.
+* 0 Clone this repository
+```
+git clone https://github.com/pixelhumain/docker pixelhumain-docker
+```
+* 1 Create a folder named *code* that will work as a work directory
+```
+mkdir pixelhumain-docker/code
+```
 * 2 Put your source file in the *code* directory:
     - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
     - use the docker image provided below
@@ -12,6 +21,23 @@ docker-compose -f docker-compose.yml up
 * 5 Access to communecter through http://127.0.0.1:5000/ph/
 * 6 You can modify your sources code with your prefered editor in the code directory
 
+# Layout overview
+
+```
+|-- code
+    |-- modules
+        |-- communecter
+        |-- citizenToolKit
+        |-- cityData
+        |-- opendata
+    |-- pixelhumain
+        |-- ph
+        |-- [...]
+|-- front-conf
+|-- docker-install
+[...]
+```
+
 # Basic setup and data with the docker image
   For an initial setup you'll need to init MongoDB, configurations, etc (see
   communecter install guide for more details)
@@ -23,8 +49,9 @@ docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph instal
   The install script fetch every modules in the pixelhumain guide, create directories
   and populate some data like cities, ...
 
-# Updating Dockers images and therefore services (not code)
+# Updating Dockers images
 Useful commands:
+
 Start services
 ```
 docker-compose -f docker-compose.yml up
