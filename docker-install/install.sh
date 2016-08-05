@@ -16,7 +16,7 @@ ctdt_dir="cityData"
 pndt_uri="https://github.com/pixelhumain/opendata.git"
 pndt_dir="opendata"
 
-modules="cmctr ctzntkt ctdt pndt"
+modules="cmnctr ctzntkt ctdt pndt"
 
 # Install pixelhumain
 git clone "$ph_uri" "$ph_dir"
