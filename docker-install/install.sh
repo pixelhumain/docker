@@ -93,4 +93,5 @@ cd "${BASE_DIR_PH}"
 /tmp/composer.phar install 
 
 # TODO: Don't import endlessly
-mongoimport --host mongo --db pixelhumain --collection cities /code/modules/cityData/cities/cities.js
+mongoimport --host mongo --db pixelhumain --collection lists /code/modules/communecter/data/lists.json --jsonArray
+mongoimport --host mongo --db pixelhumain --collection cities /code/modules/communecter/data/cities.json --jsonArray
