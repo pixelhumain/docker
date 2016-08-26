@@ -14,6 +14,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
     apt-get install -my \
       git \
       php5-cli \
+      zip \ 
       supervisor \
       wget && \
     rm /etc/supervisor/supervisord.conf

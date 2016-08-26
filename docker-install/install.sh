@@ -94,4 +94,5 @@ cd "${BASE_DIR_PH}"
 
 # TODO: Don't import endlessly
 mongoimport --host mongo --db pixelhumain --collection lists /code/modules/communecter/data/lists.json --jsonArray
+unzip /code/modules/communecter/data/cities.json.zip -d /code/modules/communecter/data/
 mongoimport --host mongo --db pixelhumain --collection cities /code/modules/communecter/data/cities.json --jsonArray
