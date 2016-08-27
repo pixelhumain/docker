@@ -21,5 +21,6 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
 
 COPY install-conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY install.sh /usr/bin/install
+COPY update.sh /usr/bin/update
 
 # No entry point, could be used as a scratch machine

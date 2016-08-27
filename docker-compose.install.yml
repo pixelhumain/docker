@@ -4,5 +4,6 @@ services:
     build: docker-install
     volumes:
       - ./code:/code
+      - ./code/data/db:/data/db
     depends_on:
       - front
