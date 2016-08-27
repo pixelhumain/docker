@@ -5,9 +5,9 @@
 ```
 git clone https://github.com/pixelhumain/docker pixelhumain-docker
 ```
-* 1 Create a folder *code* that will be the source directory inside pixelhumain-docker
+* 1 Create a folder *code* *code/data/db* that will be the source directory inside pixelhumain-docker
 ```
-mkdir code
+mkdir -p code/data/db
 ```
 * 2 Put your source file in the *code* directory:
     - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
@@ -17,8 +17,8 @@ mkdir code
 ```
 docker-compose -f docker-compose.yml up
 ```
-* 4 Access to the test service through http://127.0.0.1:5080/ph/index.php/test
-* 5 Access to communecter through http://127.0.0.1:5080/ph/
+* 4 Access to the test service through http://127.0.0.1:5080/index.php/test
+* 5 Access to communecter through http://127.0.0.1:5080/
 * 6 You can modify your sources code with your prefered editor in the code directory
 
 # Layout overview
@@ -28,7 +28,6 @@ docker-compose -f docker-compose.yml up
     |-- modules
         |-- communecter
         |-- citizenToolKit
-        |-- cityData
         |-- opendata
     |-- pixelhumain
         |-- ph
