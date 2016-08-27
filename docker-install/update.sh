@@ -16,78 +16,20 @@ pndt_dir="opendata"
 
 modules="cmnctr ctzntkt pndt"
 
-# Install pixelhumain
-git clone "$ph_uri" "$ph_dir"
+# Update pixelhumain
+echo "Update modules..."
 
-# Setup directories
-mkdir -vp /code/{modules,pixelhumain/ph/{assets,protected/runtime}}
-
-# Install missing modules
+# Update modules
 for mod in $modules
   do
     mod_uri=$(eval "echo \$${mod}_uri")
     mod_dir=$(eval "echo \$${mod}_dir")
     if [ -d "${MODULE_DIR}/$mod_dir" ]; then
-      continue
+      echo "Update ${mod_dir}"
+      cd "$mod_uri" "${MODULE_DIR}/$mod_dir"
+      git pull origin master
     fi
-    echo "Installing ${mod_dir}"
-    git clone "$mod_uri" "${MODULE_DIR}/$mod_dir" || exit 1
   done
- 
-# Setup MongoDB
-
-echo "Setting up credentials"
-
-mongo mongo/pixelhumain <<EOF
-db.createUser({ user: 'pixelhumain', pwd: 'pixelhumain', roles: [ { role: "readWrite", db: "pixelhumain" } ] });
-EOF
-
-mongo mongo/pixelhumaintest <<EOF
-db.createUser({ user: 'pixelhumain', pwd: 'pixelhumain', roles: [ { role: "readWrite", db: "pixelhumain" } ] });
-EOF
-
-# Setup configuration for MongoDB
-
-cat > "${BASE_DIR_PH}/protected/config/dbconfig.php" <<EOF
-<?php
-
-\$dbconfig = array(
-    'class' => 'mongoYii.EMongoClient',
-    'server' => 'mongodb://mongo:27017/',
-    'db' => 'pixelhumain',
-);
-\$dbconfigtest = array(
-    'class' => 'mongoYii.EMongoClient',
-    'server' => 'mongodb://mongo:27017/',
-    'db' => 'pixelhumaintest',
-);
-EOF
-
-# Install Composer
-
-echo "Installing composer" # No package manager available...
-
-EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
-cd /tmp
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
-
-if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]
-then
-    php composer-setup.php --quiet
-    rm composer-setup.php
-else
-    >&2 echo 'ERROR: Invalid installer signature'
-    rm composer-setup.php
-    exit 1
-fi
-
-echo "Setting up with Composer"
-
-cd "${BASE_DIR_PH}"
-/tmp/composer.phar config -g "secure-http" false
-/tmp/composer.phar update
-/tmp/composer.phar install 
 
 echo "Import data"
 
