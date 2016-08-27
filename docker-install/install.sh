@@ -11,13 +11,15 @@ cmnctr_uri="https://github.com/pixelhumain/communecter.git"
 cmnctr_dir="communecter"
 ctzntkt_uri="https://github.com/pixelhumain/citizenToolkit.git"
 ctzntkt_dir="citizenToolKit"
-pndt_uri="https://github.com/pixelhumain/opendata.git"
-pndt_dir="opendata"
 
-modules="cmnctr ctzntkt pndt"
+modules="cmnctr ctzntkt"
 
 # Install pixelhumain
+if [ -d "${ph_dir}" ]; then
+
+else
 git clone "$ph_uri" "$ph_dir"
+fi
 
 # Setup directories
 mkdir -vp /code/{modules,pixelhumain/ph/{assets,protected/runtime}}
