@@ -1,5 +1,30 @@
 # WIP
 
+# auto install ubuntu
+
+* options stop container
+```
+docker stop $(docker ps -a -q)
+```
+* options delete container
+```
+docker rm $(docker ps -a -q)
+```
+* options delete images
+```
+docker rmi $(docker images -q)
+```
+
+* auto install : docker , docker-compose and communecter
+```
+wget -O - https://gist.githubusercontent.com/aboire/4c83ff97026b1a4fabaada09950b2fc8/raw/install.sh| bash
+```
+* updating the user's permissions to edit files
+```
+cd ~/pixelhumain-docker
+sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/pixelhumain/
+sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/modules/
+```
 # Initial setup
 * 0 Clone this repository
 ```
@@ -28,7 +53,6 @@ docker-compose -f docker-compose.yml up
     |-- modules
         |-- communecter
         |-- citizenToolKit
-        |-- opendata
     |-- pixelhumain
         |-- ph
         |-- [...]

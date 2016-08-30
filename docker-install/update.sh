@@ -11,13 +11,17 @@ cmnctr_uri="https://github.com/pixelhumain/communecter.git"
 cmnctr_dir="communecter"
 ctzntkt_uri="https://github.com/pixelhumain/citizenToolkit.git"
 ctzntkt_dir="citizenToolKit"
-pndt_uri="https://github.com/pixelhumain/opendata.git"
-pndt_dir="opendata"
 
-modules="cmnctr ctzntkt pndt"
+modules="cmnctr ctzntkt"
 
 # Update pixelhumain
 echo "Update modules..."
+
+if [ -d "${ph_dir}" ]; then
+cd "${ph_dir}"
+git pull origin master
+cd ../..
+fi
 
 # Update modules
 for mod in $modules
@@ -26,8 +30,9 @@ for mod in $modules
     mod_dir=$(eval "echo \$${mod}_dir")
     if [ -d "${MODULE_DIR}/$mod_dir" ]; then
       echo "Update ${mod_dir}"
-      cd "$mod_uri" "${MODULE_DIR}/$mod_dir"
+      cd "${MODULE_DIR}/$mod_dir"
       git pull origin master
+      cd ../../..
     fi
   done
 
