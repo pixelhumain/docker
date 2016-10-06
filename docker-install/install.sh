@@ -49,7 +49,7 @@ db.createUser({ user: 'pixelhumain', pwd: 'pixelhumain', roles: [ { role: "readW
 EOF
 
 # Setup configuration for MongoDB
-
+if [ -f "${BASE_DIR_PH}/protected/config/dbconfig.php" ];then
 cat > "${BASE_DIR_PH}/protected/config/dbconfig.php" <<EOF
 <?php
 
@@ -64,6 +64,7 @@ cat > "${BASE_DIR_PH}/protected/config/dbconfig.php" <<EOF
     'db' => 'pixelhumaintest',
 );
 EOF
+fi
 
 # Install Composer
 
