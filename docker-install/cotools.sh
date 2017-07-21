@@ -15,22 +15,10 @@ source easyoptions || exit # Bash implementation, slower
 BASE_DIR="/code"
 BASE_DIR_PH="${BASE_DIR}/pixelhumain/ph"
 MODULE_DIR="/code/modules"
-
-ph_uri="https://github.com/pixelhumain/pixelhumain.git"
 ph_dir="${BASE_DIR}/pixelhumain"
-
-#cmnctr_uri="https://github.com/pixelhumain/communecter.git"
-#cmnctr_dir="communecter"
-cmnctr_uri="https://github.com/pixelhumain/co2.git"
 cmnctr_dir="co2"
-ctzntkt_uri="https://github.com/pixelhumain/citizenToolkit.git"
-ctzntkt_dir="citizenToolKit"
 
-modules="cmnctr ctzntkt"
-
-# Boolean and parameter options
 [[ -n "$install"  ]] && /usr/bin/install
-[[ -n "$some_boolean" ]] && echo "Option specified: --some-boolean"
 [[ -n "$emailvalid"   ]] && echo "Option specified: --emailvalid is $emailvalid"
 
 if [ -n "$emailvalid" ]
