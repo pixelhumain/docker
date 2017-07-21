@@ -9,16 +9,23 @@ ph_dir="${BASE_DIR}/pixelhumain"
 
 cmnctr_uri="https://github.com/pixelhumain/communecter.git"
 cmnctr_dir="communecter"
+co2_uri="https://github.com/pixelhumain/co2.git"
+co2_dir="co2"
+api_uri="https://github.com/pixelhumain/api.git"
+api_dir="api"
+network_uri="https://github.com/pixelhumain/network.git"
+network_dir="network"
 ctzntkt_uri="https://github.com/pixelhumain/citizenToolkit.git"
 ctzntkt_dir="citizenToolKit"
 
-modules="cmnctr ctzntkt"
+modules="cmnctr ctzntkt co2 network api"
 
 # Update pixelhumain
 echo "Update modules..."
 
 if [ -d "${ph_dir}" ]; then
 cd "${ph_dir}"
+git fetch origin
 git pull origin master
 cd ../..
 fi
@@ -31,6 +38,7 @@ for mod in $modules
     if [ -d "${MODULE_DIR}/$mod_dir" ]; then
       echo "Update ${mod_dir}"
       cd "${MODULE_DIR}/$mod_dir"
+      git fetch origin
       git pull origin master
       cd ../../..
     fi
@@ -75,4 +83,3 @@ if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh" ];then
   chmod +x "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh"
   "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh"
 fi
-

@@ -1,10 +1,13 @@
-FROM nginx
+FROM php:5.6.31-fpm
 
-# Remove default nginx configs.
-RUN rm -f /etc/nginx/conf.d/*
+ENV MONGO_URL ${MONGO_URL}
+ONBUILD ENV MONGO_URL ${MONGO_URL}
+ENV MONGO_DB ${MONGO_DB}
+ONBUILD ENV MONGO_URL ${MONGO_DB}
 
 # Install packages
 RUN apt-get update && apt-get install -my \
+  nginx \
   curl \
   supervisor \
   wget \
@@ -18,7 +21,10 @@ RUN apt-get update && apt-get install -my \
   php5-xdebug \
   php5-mongo \
   php-apc
-  
+
+# Remove default nginx configs.
+RUN rm -f /etc/nginx/conf.d/*
+
 # * Ensure that PHP5 FPM is run as root.
 # * Pass all docker environment
 # * Get access to FPM-ping page /ping

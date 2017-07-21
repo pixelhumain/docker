@@ -1,15 +1,18 @@
 version: '2'
 services:
+  mongo:
+    image: mongo
+    volumes:
+      - ./code/data/db:/data/db
   front:
     build: docker-front
     ports:
       - "5080:80"
       - "5443:443"
+      - "5901:9001"
     volumes:
       - ./code:/code
+      - ./code/data/db:/data/db
+      - ./code/log:/var/log/nginx
     depends_on:
       - mongo
-  mongo:
-    image: mongo
-    volumes:
-      - ./code/data/db:/data/db
