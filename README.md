@@ -24,15 +24,17 @@ wget -O - https://gist.githubusercontent.com/aboire/4c83ff97026b1a4fabaada09950b
 cd ~/pixelhumain-docker
 sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/pixelhumain/
 sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/modules/
+sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/log/
 ```
 # Initial setup
 * 0 Clone this repository
 ```
 git clone https://github.com/pixelhumain/docker pixelhumain-docker
 ```
-* 1 Create a folder *code* *code/data/db* that will be the source directory inside pixelhumain-docker
+* 1 Create a folder *code* *code/data/db* *code/log* that will be the source directory inside pixelhumain-docker
 ```
 mkdir -p code/data/db
+mkdir -p code/log
 ```
 * 2 Put your source file in the *code* directory:
     - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
@@ -42,7 +44,7 @@ mkdir -p code/data/db
 ```
 docker-compose -f docker-compose.yml up
 ```
-* 4 Access to the test service through http://127.0.0.1:5080/index.php/test
+* 4 Access to the test service through http://127.0.0.1:5080/
 * 5 Access to communecter through http://127.0.0.1:5080/
 * 6 You can modify your sources code with your prefered editor in the code directory
 
@@ -51,8 +53,11 @@ docker-compose -f docker-compose.yml up
 ```
 |-- code
     |-- modules
+        |-- co2
         |-- communecter
         |-- citizenToolKit
+        |-- api
+        |-- network
     |-- pixelhumain
         |-- ph
         |-- [...]
@@ -69,7 +74,7 @@ docker-compose -f docker-compose.yml up
   An easy to use image with an install script is provided through the docker
   imager « ph » and can be used with this command
 ```
-docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph install
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotools --install
 ```
   The install script fetch every modules in the pixelhumain guide, create directories
   and populate some data like cities, ...
@@ -92,10 +97,13 @@ docker-compose -f docker-compose.yml build
 ```
 Install base sources codes and populates some data
 ```
-docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph install
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotools --install
+```
+Validate your user after registration without sending email
+```
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotools --emailvalid=email@example.com 
 ```
 See log from nginx
 ```
-docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph supervisorctl tail nginx
-docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph supervisorctl tail nginx stderr
+/code/log
 ```
