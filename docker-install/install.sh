@@ -107,24 +107,24 @@ cd "${BASE_DIR_PH}"
 echo "Import data"
 
 echo "Import lists data..."
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/lists.json" ];then
+if [ -f "${MODULE_DIR}/${co2_dir}/data/lists.json" ];then
 
 mongo mongo/pixelhumain <<EOF
 db.lists.dropIndexes();
 db.lists.remove({});
 EOF
 
-mongoimport --host mongo --db pixelhumain --collection lists "${MODULE_DIR}/${cmnctr_dir}/data/lists.json" --jsonArray
+mongoimport --host mongo --db pixelhumain --collection lists "${MODULE_DIR}/${co2_dir}/data/lists.json" --jsonArray
 fi
 
 #Test cities.json
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/cities.json" ];then
- rm "${MODULE_DIR}/${cmnctr_dir}/data/cities.json"
+if [ -f "${MODULE_DIR}/${co2_dir}/data/cities.json" ];then
+ rm "${MODULE_DIR}/${co2_dir}/data/cities.json"
 fi
 
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/cities.json.zip" ];then
+if [ -f "${MODULE_DIR}/${co2_dir}/data/cities.json.zip" ];then
 
-unzip "${MODULE_DIR}/${cmnctr_dir}/data/cities.json.zip" -d "${MODULE_DIR}/${cmnctr_dir}/data/"
+unzip "${MODULE_DIR}/${co2_dir}/data/cities.json.zip" -d "${MODULE_DIR}/${co2_dir}/data/"
 
 #delete cities and delete all index cities
 mongo mongo/pixelhumain <<EOF
@@ -134,14 +134,14 @@ EOF
 
 echo "Import cities data..."
 #import cities
-mongoimport --host mongo --db pixelhumain --collection cities "${MODULE_DIR}/${cmnctr_dir}/data/cities.json" --jsonArray
+mongoimport --host mongo --db pixelhumain --collection cities "${MODULE_DIR}/${co2_dir}/data/cities.json" --jsonArray
 fi
 
 #create index mongo bash script
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh" ];then
+if [ -f "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh" ];then
   echo "Create index mongo...";
-  chmod +x "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh"
-  "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh"
+  chmod +x "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh"
+  "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh"
 fi
 
 echo "Communecte est maintenant disponible depuis http://localhost:5080"

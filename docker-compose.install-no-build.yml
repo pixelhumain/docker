@@ -1,0 +1,9 @@
+version: '2'
+services:
+  ph:
+    image: communecter/co2-install-dev:latest
+    volumes:
+      - ./code:/code
+      - ./code/data/db:/data/db
+    depends_on:
+      - front
