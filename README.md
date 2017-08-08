@@ -1,3 +1,16 @@
+### install docker
+choose community edition CE
+https://docs.docker.com/engine/installation/
+
+**example install docker ubuntu**
+https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+
+**Post-installation steps for Linux**
+https://docs.docker.com/engine/installation/linux/linux-postinstall/
+
+### install docker-compose
+https://docs.docker.com/compose/install/
+
 # WIP
 
 # auto install ubuntu
