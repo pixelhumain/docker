@@ -13,6 +13,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
       mongodb-org-tools && \
     apt-get install -my \
       git \
+      curl \
+      php5-curl \
       php5-cli \
       zip \
       supervisor \

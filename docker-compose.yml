@@ -4,6 +4,8 @@ services:
     image: mongo
     volumes:
       - ./code/data/db:/data/db
+    ports:
+      - "5017:27017"
   front:
     build: docker-front
     ports:
