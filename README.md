@@ -50,7 +50,16 @@ mkdir -p code/data/db
 mkdir -p code/log
 ```
 * 2 Put your source file in the *code* directory:
-    - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
+    - See https://github.com/pixelhumain/pixelhumain/blob/master/README.md
+    - Edit the file /ph/protected/config/dbconfig.php, this line: 
+    ```
+    'server' => 'mongodb://127.0.0.1:27017/'
+    ```
+    to be:
+    ```
+    'server' => 'mongodb://mongo:27017/'
+    ```
+    Therefore it will be able to connect to the Docker image called mongo
     - use the docker image provided below
     - Your VCS / IDE / ...
 * 3 Start the containers using:
