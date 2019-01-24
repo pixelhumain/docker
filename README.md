@@ -97,15 +97,15 @@ Useful commands:
 
 Start services
 ```
-docker-compose -f docker-compose.yml up
+docker-compose up
 ```
 Shutdown gracefuly services
 ```
-docker-compose -f docker-compose.yml down
+docker-compose down
 ```
 Re-build images after modifications of docker files
 ```
-docker-compose -f docker-compose.yml build
+docker-compose build
 #docker-compose -f docker-compose.yml -f docker-compose.install.yml build ph
 ```
 Install base sources codes and populates some data
