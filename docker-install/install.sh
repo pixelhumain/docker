@@ -15,8 +15,8 @@ co2_uri="https://gitlab.adullact.net/pixelhumain/co2.git"
 co2_dir="co2"
 api_uri="https://gitlab.adullact.net/pixelhumain/api.git"
 api_dir="api"
-network_uri="https://gitlab.adullact.net/pixelhumain/network.git"
-network_dir="network"
+#network_uri="https://gitlab.adullact.net/pixelhumain/network.git"
+#network_dir="network"
 ctzntkt_uri="https://gitlab.adullact.net/pixelhumain/citizenToolkit.git"
 ctzntkt_dir="citizenToolKit"
 
@@ -64,6 +64,9 @@ for mod in $modules
     git clone "$mod_uri" "${MODULE_DIR}/$mod_dir" || exit 1
   done
 
+#lien
+ln -s "${MODULE_DIR}/co2" "${MODULE_DIR}/network"
+
 # Setup MongoDB
 
 echo "Setting up credentials"
@@ -81,7 +84,7 @@ if [ -f "${BASE_DIR_PH}/protected/config/dbconfig.php" ]
 then
 echo "configuration mongodb déja présente : $BASE_DIR_PH/protected/config/dbconfig.php"
 else
-  mv ${BASE_DIR_PH}/protected/config/dbconfig.exemple.php ${BASE_DIR_PH}/protected/config/protected/config/dbconfig.php
+  #mv ${BASE_DIR_PH}/protected/config/dbconfig.exemple.php ${BASE_DIR_PH}/protected/config/protected/config/dbconfig.php
   cat > "${BASE_DIR_PH}/protected/config/dbconfig.php" <<EOF
   <?php
 
@@ -154,7 +157,7 @@ EOF
 
 echo "Import cities data..."
 #import cities
-mongoimport --host mongo --db pixelhumain --collection cities "${MODULE_DIR}/${co2_dir}/data/cities.json" --jsonArray
+mongoimport --host mongo --db pixelhumain --collection cities "${MODULE_DIR}/${co2_dir}/data/cities.json"
 fi
 
 #Test zones.json
@@ -174,7 +177,7 @@ EOF
 
 echo "Import zones data..."
 #import zones
-mongoimport --host mongo --db pixelhumain --collection zones "${MODULE_DIR}/${co2_dir}/data/zones.json" --jsonArray
+mongoimport --host mongo --db pixelhumain --collection zones "${MODULE_DIR}/${co2_dir}/data/zones.json"
 fi
 
 #Test translate.json
@@ -194,8 +197,15 @@ EOF
 
 echo "Import translate data..."
 #import cities
-mongoimport --host mongo --db pixelhumain --collection translate "${MODULE_DIR}/${co2_dir}/data/translate.json" --jsonArray
+mongoimport --host mongo --db pixelhumain --collection translate "${MODULE_DIR}/${co2_dir}/data/translate.json"
 fi
+
+#delete cities and delete all index cities
+mongo mongo/pixelhumain <<EOF
+db.createCollection("applications")
+db.applications.insert({     "_id" : ObjectId("59f1920bc30f30536124355d"),     "name" : "DEV Config",     "key" : "devParams",     "mangoPay" : {         "ClientId" : "communecter",         "ClientPassword" : "xxxx",         "TemporaryFolder" : "../../tmp"     } } )
+db.applications.insert({     "_id" : ObjectId("59f1920bc30f30536124355e"),     "name" : "PROD Config",     "key" : "prodParams",     "mangoPay" : {         "ClientId" : "communecter",         "ClientPassword" : "xxxx",         "TemporaryFolder" : "../../tmp"     } } )
+EOF
 
 #create index mongo bash script
 if [ -f "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh" ];then
