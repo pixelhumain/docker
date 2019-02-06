@@ -42,7 +42,7 @@ sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/log/
 # Initial setup
 * 0 Clone this repository
 ```
-git clone https://github.com/pixelhumain/docker pixelhumain-docker
+git clone https://gitlab.adullact.net/pixelhumain/docker pixelhumain-docker
 ```
 * 1 Create a folder *code* *code/data/db* *code/log* that will be the source directory inside pixelhumain-docker
 ```
@@ -50,7 +50,7 @@ mkdir -p code/data/db
 mkdir -p code/log
 ```
 * 2 Put your source file in the *code* directory:
-    - see https://github.com/pixelhumain/pixelhumain/blob/master/README.md
+    - see https://gitlab.adullact.net/pixelhumain/pixelhumain/blob/master/README.md
     - use the docker image provided below
     - Your VCS / IDE / ...
 * 3 Start the containers using:
@@ -71,6 +71,7 @@ docker-compose -f docker-compose.yml up
         |-- citizenToolKit
         |-- api
         |-- network
+        |-- [...]
     |-- pixelhumain
         |-- ph
         |-- [...]
