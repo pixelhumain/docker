@@ -39,13 +39,18 @@ map_dir="map"
 onepage_uri="https://gitlab.adullact.net/pixelhumain/onepage.git"
 onepage_dir="onepage"
 
+places_uri="https://gitlab.adullact.net/pixelhumain/places.git"
+places_dir="places"
+learn_uri="https://gitlab.adullact.net/pixelhumain/learn.git"
+learn_dir="learn"
+cotools_uri="https://gitlab.adullact.net/pixelhumain/cotools.git"
+cotools_dir="cotools"
+
 #git clone https://gitlab.adullact.net/pixelhumain/classifieds.git
 #git clone https://gitlab.adullact.net/pixelhumain/ressources.git
-#git clone https://gitlab.adullact.net/pixelhumain/places.git
-#git clone https://gitlab.adullact.net/pixelhumain/learn.git
-#git clone https://gitlab.adullact.net/pixelhumain/cotools.git
 
-modules="cmnctr ctzntkt co2 api dda news interop graph eco chat survey map onepage"
+
+modules="cmnctr ctzntkt co2 api dda news interop graph eco chat survey map onepage places learn cotools"
 
 # Install pixelhumain
 if [ -d "${ph_dir}" ]
