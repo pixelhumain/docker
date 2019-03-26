@@ -6,6 +6,7 @@ ENV MONGO_DB ${MONGO_DB}
 ONBUILD ENV MONGO_URL ${MONGO_DB}
 
 # Install packages
+RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get install -my \
   nginx \
   curl \
