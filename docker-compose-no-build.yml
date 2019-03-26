@@ -2,8 +2,11 @@ version: '2'
 services:
   mongo:
     image: mongo:3.4
+    #volumes:
+    #  - ./code/data/db:/data/db
     volumes:
-      - ./code/data/db:/data/db
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
   front:
     image: communecter/co2-front-dev:latest
     ports:
@@ -12,7 +15,11 @@ services:
       - "5901:9001"
     volumes:
       - ./code:/code
-      - ./code/data/db:/data/db
+      #- ./code/data/db:/data/db
+      - mongodb:/data/db
       - ./code/log:/var/log/nginx
     depends_on:
       - mongo
+volumes:
+  mongodb:
+  mongodb_config:

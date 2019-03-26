@@ -4,6 +4,10 @@ services:
     image: communecter/co2-install-dev:latest
     volumes:
       - ./code:/code
-      - ./code/data/db:/data/db
+      #- ./code/data/db:/data/db
+      - mongodb:/data/db
     depends_on:
       - front
+volumes:
+  mongodb:
+  mongodb_config:
