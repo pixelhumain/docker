@@ -7,6 +7,9 @@ services:
     volumes:
       - mongodb:/data/db
       - mongodb_config:/data/configdb
+    command: mongod
+    ports:
+      - "5017:27017"
   front:
     image: communecter/co2-front-dev:latest
     ports:
