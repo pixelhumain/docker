@@ -5,7 +5,8 @@ asciiart
 ## Options:
 ##     -h, --help               aide
 ##         --install            install
-##         --import-list-cities importe ou reimporte base data list et cities
+##         --update             update
+##         --update-data        importe ou reimporte base data
 ##         --add-cron           Ajout de la tache cron pour l'envoi des mails
 ##         --emailvalid=VALUE   valide compte user avec le mail
 
@@ -16,9 +17,10 @@ BASE_DIR="/code"
 BASE_DIR_PH="${BASE_DIR}/pixelhumain/ph"
 MODULE_DIR="/code/modules"
 ph_dir="${BASE_DIR}/pixelhumain"
-cmnctr_dir="co2"
+co2_dir="co2"
 
 [[ -n "$install"  ]] && /usr/bin/install
+[[ -n "$update"  ]] && /usr/bin/update
 [[ -n "$emailvalid"   ]] && echo "Option specified: --emailvalid is $emailvalid"
 
 if [ -n "$emailvalid" ]
@@ -27,31 +29,31 @@ EVAL="db.citoyens.update({\"email\":\"$emailvalid\"},{\"\$unset\" :{\"roles.tobe
 echo $EVAL | mongo mongo/pixelhumain --quiet
 fi
 
-if [ -n "$import_list_cities" ]
+if [ -n "$update_data" ]
 then
 
 echo "Import data"
 
 echo "Import lists data..."
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/lists.json" ]
+if [ -f "${MODULE_DIR}/${co2_dir}/data/lists.json" ];
 then
-
 mongo mongo/pixelhumain <<EOF
 db.lists.dropIndexes();
 db.lists.remove({});
 EOF
-
-mongoimport --host mongo --db pixelhumain --collection lists "${MODULE_DIR}/${cmnctr_dir}/data/lists.json" --jsonArray
+mongoimport --host mongo --db pixelhumain -u pixelhumain -p pixelhumain --collection lists "${MODULE_DIR}/${co2_dir}/data/lists.json" --jsonArray
 fi
 
 #Test cities.json
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/cities.json" ];then
- rm "${MODULE_DIR}/${cmnctr_dir}/data/cities.json"
+if [ -e "${MODULE_DIR}/${co2_dir}/data/cities.json" ];
+then
+ rm "${MODULE_DIR}/${co2_dir}/data/cities.json"
 fi
 
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/cities.json.zip" ];then
+if [ -f "${MODULE_DIR}/${co2_dir}/data/cities.json.zip" ];
+then
 
-unzip "${MODULE_DIR}/${cmnctr_dir}/data/cities.json.zip" -d "${MODULE_DIR}/${cmnctr_dir}/data/"
+unzip "${MODULE_DIR}/${co2_dir}/data/cities.json.zip" -d "${MODULE_DIR}/${co2_dir}/data/"
 
 #delete cities and delete all index cities
 mongo mongo/pixelhumain <<EOF
@@ -61,14 +63,59 @@ EOF
 
 echo "Import cities data..."
 #import cities
-mongoimport --host mongo --db pixelhumain --collection cities "${MODULE_DIR}/${cmnctr_dir}/data/cities.json" --jsonArray
+mongoimport --host mongo --db pixelhumain -u pixelhumain -p pixelhumain --collection cities "${MODULE_DIR}/${co2_dir}/data/cities.json"
+fi
+
+#Test zones.json
+if [ -f "${MODULE_DIR}/${co2_dir}/data/zones.json" ];
+then
+ rm "${MODULE_DIR}/${co2_dir}/data/zones.json"
+fi
+
+if [ -f "${MODULE_DIR}/${co2_dir}/data/zones.json.zip" ];
+then
+
+unzip "${MODULE_DIR}/${co2_dir}/data/zones.json.zip" -d "${MODULE_DIR}/${co2_dir}/data/"
+
+#delete cities and delete all index cities
+mongo mongo/pixelhumain <<EOF
+db.zones.dropIndexes();
+db.zones.remove({});
+EOF
+
+echo "Import zones data..."
+#import zones
+mongoimport --host mongo --db pixelhumain -u pixelhumain -p pixelhumain --collection zones "${MODULE_DIR}/${co2_dir}/data/zones.json"
+fi
+
+#Test translate.json
+if [ -f "${MODULE_DIR}/${co2_dir}/data/translate.json" ];
+then
+ rm "${MODULE_DIR}/${co2_dir}/data/translate.json"
+fi
+
+if [ -f "${MODULE_DIR}/${co2_dir}/data/translate.json.zip" ];
+then
+
+unzip "${MODULE_DIR}/${co2_dir}/data/translate.json.zip" -d "${MODULE_DIR}/${co2_dir}/data/"
+
+#delete cities and delete all index cities
+mongo mongo/pixelhumain <<EOF
+db.translate.dropIndexes();
+db.translate.remove({});
+EOF
+
+echo "Import translate data..."
+#import cities
+mongoimport --host mongo --db pixelhumain -u pixelhumain -p pixelhumain --collection translate "${MODULE_DIR}/${co2_dir}/data/translate.json"
 fi
 
 #create index mongo bash script
-if [ -f "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh" ];then
+if [ -f "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh" ];
+then
   echo "Create index mongo...";
-  chmod +x "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh"
-  "${MODULE_DIR}/${cmnctr_dir}/data/createIndexMongoDocker.sh"
+  chmod +x "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh"
+  "${MODULE_DIR}/${co2_dir}/data/createIndexMongoDocker.sh"
 fi
 
 fi
