@@ -35,6 +35,7 @@ wget -O - https://gist.githubusercontent.com/aboire/4c83ff97026b1a4fabaada09950b
 * updating the user's permissions to edit files
 ```
 cd ~/pixelhumain-docker
+sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/
 sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/pixelhumain/
 sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/modules/
 sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/log/
@@ -96,6 +97,8 @@ docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotool
 # Updating Dockers images
 Useful commands:
 
+**Warning windows/mac : use -no-build.yml file (images build > docker hub)**
+
 Start services
 ```
 docker-compose -f docker-compose.yml up
@@ -112,6 +115,14 @@ docker-compose -f docker-compose.yml build
 Install base sources codes and populates some data
 ```
 docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotools --install
+```
+Update base sources codes
+```
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotools --update
+```
+Update data
+```
+docker-compose -f docker-compose.yml -f docker-compose.install.yml run ph cotools --update-data
 ```
 Validate your user after registration without sending email
 ```
