@@ -8,7 +8,13 @@ MODULE_DIR="/code/modules"
 co2_dir="co2"
 
 # Install repo and modules
-git clone --recurse-submodules https://gitlab.adullact.net/pixelhumain/co-meta.git code
+cd "${BASE_DIR}"
+git init  
+git remote add origin https://gitlab.adullact.net/pixelhumain/co-meta.git   
+git fetch origin
+git checkout -t origin/master
+git submodule update --init --recursive
+#git clone --recurse-submodules https://gitlab.adullact.net/pixelhumain/co-meta.git "${BASE_DIR}"
 
 # Setup directories
 mkdir -vp /code/{modules,pixelhumain/ph/{assets,upload,protected/runtime}}

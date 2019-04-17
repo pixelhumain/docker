@@ -25,7 +25,11 @@ docker rm $(docker ps -a -q)
 ```
 * options delete images
 ```
-docker rmi $(docker images -q)
+docker rmi -f $(docker images -q)
+```
+* docker prune
+```
+docker system prune
 ```
 
 * auto install : docker , docker-compose and communecter
@@ -45,22 +49,17 @@ sudo chown -R ${USER:=$(/usr/bin/id -run)}:$USER code/log/
 ```
 git clone https://gitlab.adullact.net/pixelhumain/docker pixelhumain-docker
 ```
-* 1 Create a folder *code* *code/data/db* *code/log* that will be the source directory inside pixelhumain-docker
-```
-mkdir -p code/data/db
-mkdir -p code/log
-```
-* 2 Put your source file in the *code* directory:
+* 1 Put your source file in the *code* directory:
     - see https://gitlab.adullact.net/pixelhumain/pixelhumain/blob/master/README.md
     - use the docker image provided below
     - Your VCS / IDE / ...
-* 3 Start the containers using:
+* 2 Start the containers using:
 ```
 docker-compose -f docker-compose.yml up
 ```
-* 4 Access to the test service through http://127.0.0.1:5080/
-* 5 Access to communecter through http://127.0.0.1:5080/
-* 6 You can modify your sources code with your prefered editor in the code directory
+* 3 Access to the test service through http://127.0.0.1:5080/
+* 4 Access to communecter through http://127.0.0.1:5080/
+* 5 You can modify your sources code with your prefered editor in the code directory
 
 # Layout overview
 
